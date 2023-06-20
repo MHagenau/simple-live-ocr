@@ -1,29 +1,24 @@
 import cv2
-import easyocr
 import imutils
 import numpy as np
 import pandas as pd
+from list_ports import cameraUtils
+from ocr_engine import  load_OCR_engine
 from imutils.video import VideoStream
 
 
-def load_OCR_engine():
-	# Defining the OCR engine - several options are available here
-	print("[STATUS] Loading the OCR model ...")
-	reader = easyocr.Reader(['en'], gpu = False)
-	return reader
-
-
-def main():
+def main(port_index):
 
 	reader = load_OCR_engine()
 
 	# Defining the video strem on capture card index 0 by default
 	print("[STATUS] Starting video stream ...")
-	vs = VideoStream(src=0).start()
+	vs = VideoStream(src=port_index).start()
 
 	# Scale for downscaling the image when processing
 	new_w, new_h = 320, 230
 
+	print("[INFO] Press q in the video feed to exit ...")
 	while True:
 
 		# Getting the current frame, standardizing it and saving a copy
@@ -62,4 +57,12 @@ def main():
 
 
 if __name__ == "__main__":
-	main()
+	print("[STATUS] Listing all available video ports ...")
+
+	# Function to print all available video indexes and return them as a list
+	avail_ports = cameraUtils.list_ports()
+
+	# Get the valid selected port index from the user 
+	port_index = cameraUtils.get_valid_input(avail_ports)
+
+	main(port_index)

@@ -7,7 +7,7 @@ Application for performing live OCR on video stream in Python using the easyocr 
 
 ## Running the program
 
-In order to run the program use the following commands to setup the enviroment and install the dependencies. The program will by default run on the capture card at index[0]. By default the program does not use GPU, this can be enabled in the code and will increase performance significantly.
+In order to run the program use the following commands to setup the enviroment and install the dependencies. The program will ask which capture card you would like to use. By default the program does not use GPU, this can be enabled in the code and will increase performance significantly.
 
 Creating the enviroment
 ```
@@ -23,5 +23,5 @@ pip install -r .\requirements.txt
 ```
 Running the program
 ```
-python live-ocr.py
+python .\ocr\main.py
 ```
