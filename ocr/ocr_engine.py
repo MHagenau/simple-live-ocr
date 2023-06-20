@@ -1,8 +1,15 @@
 import easyocr
-
+import torch
 
 def load_OCR_engine():
-	# Defining the OCR engine - several options are available here
-	reader = easyocr.Reader(['en'], gpu = False)
-	print("[STATUS] Loading the OCR model ...")
-	return reader
+    gpu_available = torch.cuda.is_available()
+    use_gpu = False
+
+    if gpu_available:
+        choice = input("GPU is available. Do you want to use it? (y/n): ")
+        if choice.lower() == "y":
+            use_gpu = True
+
+    reader = easyocr.Reader(['en'], gpu=use_gpu)
+    print("[STATUS] Loading the OCR model ...")
+    return reader
